@@ -25,6 +25,18 @@ app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
+app.get("/api/notes", function (req, res) {
+
+    fs.readFile('db/db.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err)
+            return
+        }
+        return res.json(JSON.parse(data))
+    })
+
+});
+
 // Starts the server to begin listening
 // =============================================================
 app.listen(PORT, function () {
