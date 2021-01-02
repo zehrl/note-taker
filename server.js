@@ -15,6 +15,9 @@ var PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Set static folder
+app.use(express.static('public'))
+
 // Routes
 // =============================================================
 app.get("/notes", function (req, res) {
@@ -36,6 +39,39 @@ app.get("/api/notes", function (req, res) {
     })
 
 });
+
+// Save new note (IN PROGRESS****)
+app.post("/api/notes", function (req, res) {
+    // req.body hosts is equal to the JSON post sent from the user
+    // This works because of our body parsing middleware
+
+    // Note object
+    const newNote = req.body;
+
+    // Using a RegEx Pattern to remove spaces from newCharacter
+    // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+    newCharacter.routeName = newCharacter.name.replace(/\s+/g, "").toLowerCase();
+
+    console.log(newCharacter);
+
+    characters.push(newCharacter);
+
+    res.json(newCharacter);
+});
+
+// Delete a note given the ID
+app.delete("/api/notes/:id", function(req,res){
+
+    // ID corresponding to the note (object) that should be deleted
+    const idDelete = req.body
+
+    // Read db.json using fs and set to variable
+
+    // Loop through variable objects to until equal to idDelete and delete
+
+    // Write to db.json with new object (not append!)
+
+})
 
 // Starts the server to begin listening
 // =============================================================
