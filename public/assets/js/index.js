@@ -32,7 +32,7 @@ const deleteNote = (id) => {
   })
   .then(() => {
     // err ? console.log(err)
-    getAndRenderNotes()
+    getAndRenderNotes();
     console.log("rendering notes!")
   });
 };

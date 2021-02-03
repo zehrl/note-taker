@@ -58,11 +58,12 @@ app.post("/api/notes", function (req, res) {
         let nextId = 0;
 
         dbNotes.forEach(note => {
-            if (note.id > nextId) {
+            if (note.id >= nextId) {
                 nextId = parseInt(note.id) + 1;
             }
         });
 
+        console.log("nextId = ", nextId)
         // create newNote db object
         const newNote = {
             id: String(nextId),
