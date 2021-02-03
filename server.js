@@ -69,12 +69,16 @@ app.post("/api/notes", function (req, res) {
             title: req.body.title,
             text: req.body.text
         }
-        
+
         // add new note to db object
         dbNotes.push(newNote)
 
         // // write to db.json file
         fs.writeFile('db/db.json', JSON.stringify(dbNotes), 'utf8', (err, data) => {
+            if (err) {
+                console.error(err)
+                return
+            }
 
             return res.json(JSON.stringify(newNote))
 
@@ -88,14 +92,44 @@ app.post("/api/notes", function (req, res) {
 app.delete("/api/notes/:id", function (req, res) {
 
     // ID corresponding to the note (object) that should be deleted
-    const idDelete = req.body
+    const idDelete = req.params.id;
+    console.log("id to delete", idDelete)
 
     // Read db.json using fs and set to variable
+    fs.readFile('db/db.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err)
+            return
+        }
 
-    // Loop through variable objects to until equal to idDelete and delete
+        // change db data to js object
+        const dbNotes = JSON.parse(data)
 
-    // Write to db.json with new object (not append!)
+        // Loop through variable objects to until equal to idDelete and delete
 
+        // find index to remove from dbNotes object
+        const index = dbNotes.findIndex((dbNotes) => {
+            
+            // console.log("curent dbNotes.id = ", dbNotes.id)
+            // console.log("==idDelete?", dbNotes.id === idDelete)
+            return dbNotes.id === idDelete;
+        })
+
+        // remove note based on index
+        dbNotes.splice(index, 1)
+
+        // // Save new object to db.json file
+        fs.writeFile('db/db.json', JSON.stringify(dbNotes), 'utf8', (err, data) => {
+            if (err) {
+                console.error(err)
+                return
+            }
+
+            return res.json(data)
+
+        })
+
+    })
 })
 
 // Starts the server to begin listening

@@ -29,6 +29,11 @@ const deleteNote = (id) => {
   return $.ajax({
     url: "api/notes/" + id,
     method: "DELETE",
+  })
+  .then(() => {
+    // err ? console.log(err)
+    getAndRenderNotes()
+    console.log("rendering notes!")
   });
 };
 

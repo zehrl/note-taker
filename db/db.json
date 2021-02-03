@@ -1,17 +1,1 @@
-[
-    {
-        "id": "1",
-        "title": "Note 1",
-        "text": "note 1 text"
-    },
-    {
-        "id": "3",
-        "title": "Note 3 with an id of 3",
-        "text": "note 3 text!"
-    },
-    {
-        "id": "4",
-        "title": "awef",
-        "text": "awef"
-    }
-]
+[{"id":"0","title":"wefaewf","text":"awefwefwefwef"},{"id":"0","title":"awef","text":"awef"}]
