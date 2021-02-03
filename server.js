@@ -35,32 +35,57 @@ app.get("/api/notes", function (req, res) {
             console.error(err)
             return
         }
+
         return res.json(JSON.parse(data))
     })
 
 });
 
-// Save new note (IN PROGRESS****)
+// Save new note
 app.post("/api/notes", function (req, res) {
-    // req.body hosts is equal to the JSON post sent from the user
-    // This works because of our body parsing middleware
 
-    // Note object
-    const newNote = req.body;
+    // read the db.json file and add the new note
+    fs.readFile('db/db.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err)
+            return
+        }
 
-    // Using a RegEx Pattern to remove spaces from newCharacter
-    // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-    newCharacter.routeName = newCharacter.name.replace(/\s+/g, "").toLowerCase();
+        // change db data to js object
+        const dbNotes = JSON.parse(data)
 
-    console.log(newCharacter);
+        // find next id value by finding the max id value in the db.json file
+        let nextId = 0;
 
-    characters.push(newCharacter);
+        dbNotes.forEach(note => {
+            if (note.id > nextId) {
+                nextId = parseInt(note.id) + 1;
+            }
+        });
 
-    res.json(newCharacter);
+        // create newNote db object
+        const newNote = {
+            id: String(nextId),
+            title: req.body.title,
+            text: req.body.text
+        }
+        
+        // add new note to db object
+        dbNotes.push(newNote)
+
+        // // write to db.json file
+        fs.writeFile('db/db.json', JSON.stringify(dbNotes), 'utf8', (err, data) => {
+
+            return res.json(JSON.stringify(newNote))
+
+        })
+
+    })
+
 });
 
 // Delete a note given the ID
-app.delete("/api/notes/:id", function(req,res){
+app.delete("/api/notes/:id", function (req, res) {
 
     // ID corresponding to the note (object) that should be deleted
     const idDelete = req.body
