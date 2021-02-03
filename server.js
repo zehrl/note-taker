@@ -63,7 +63,6 @@ app.post("/api/notes", function (req, res) {
             }
         });
 
-        console.log("nextId = ", nextId)
         // create newNote db object
         const newNote = {
             id: String(nextId),
@@ -94,7 +93,6 @@ app.delete("/api/notes/:id", function (req, res) {
 
     // ID corresponding to the note (object) that should be deleted
     const idDelete = req.params.id;
-    console.log("id to delete", idDelete)
 
     // Read db.json using fs and set to variable
     fs.readFile('db/db.json', 'utf8', (err, data) => {
@@ -106,13 +104,9 @@ app.delete("/api/notes/:id", function (req, res) {
         // change db data to js object
         const dbNotes = JSON.parse(data)
 
-        // Loop through variable objects to until equal to idDelete and delete
-
         // find index to remove from dbNotes object
         const index = dbNotes.findIndex((dbNotes) => {
             
-            // console.log("curent dbNotes.id = ", dbNotes.id)
-            // console.log("==idDelete?", dbNotes.id === idDelete)
             return dbNotes.id === idDelete;
         })
 
@@ -126,7 +120,7 @@ app.delete("/api/notes/:id", function (req, res) {
                 return
             }
 
-            return res.json(data)
+            return res.sendStatus(200)
 
         })
 

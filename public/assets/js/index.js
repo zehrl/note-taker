@@ -30,11 +30,6 @@ const deleteNote = (id) => {
     url: "api/notes/" + id,
     method: "DELETE",
   })
-  .then(() => {
-    // err ? console.log(err)
-    getAndRenderNotes();
-    console.log("rendering notes!")
-  });
 };
 
 // If there is an activeNote, display it, otherwise render empty inputs
@@ -69,6 +64,7 @@ const handleNoteSave = function () {
 
 // Delete the clicked note
 const handleNoteDelete = function (event) {
+
   // prevents the click listener for the list from being called when the button inside of it is clicked
   event.stopPropagation();
 
@@ -77,6 +73,7 @@ const handleNoteDelete = function (event) {
   if (activeNote.id === note.id) {
     activeNote = {};
   }
+
 
   deleteNote(note.id).then(() => {
     getAndRenderNotes();
