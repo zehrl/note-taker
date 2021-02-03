@@ -1,16 +1,16 @@
 {
   "name": "note-taker",
   "version": "1.0.0",
-  "description": "",
+  "description": "Application allows for creation and deletion of notes.",
   "main": "server.js",
   "scripts": {
-    "start" : "npm index.js",
+    "start" : "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Logan Zehr",
+  "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
