@@ -2,7 +2,6 @@
 // =============================================================
 const express = require("express")
 const nodemon = require("nodemon")
-const dotenv = require('dotenv').config();
 
 const path = require('path')
 const fs = require("fs")
